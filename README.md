@@ -170,3 +170,13 @@ or deploy directly:
 sh build.sh          # mandatory pre-deploy gate
 wrangler pages deploy dist
 ```
+
+### Hosting decision (2026-06-11)
+
+Releases are served from a VPS via nginx (`deploy/VPS-SETUP.md` — nginx
+configs, hardening, TLS split: site proxied w/ CF origin cert, releases
+DNS-only w/ Lets Encrypt so the ISO bypasses the 512MB CDN cache cap
+entirely). Per-release upload: `deploy/upload-release.fish <version>`
+(rsync + remote checksum verify). The wrangler/R2 path in the section above
+remains documented as a fallback. The site can stay on Cloudflare Pages or
+move to the same VPS — both configs ship in `deploy/nginx/`.

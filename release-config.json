@@ -1,12 +1,12 @@
 {
   "version": "1.0.0",
-  "bucket": "tenebraos-releases",
   "base_url": "https://releases.tenebraos.org",
   "base_url_status": "pending-dns",
-  "fallback_url_pattern": "https://pub-<hash>.r2.dev/<version>/<filename>",
+  "fallback_url_pattern": null,
   "iso": "1.0.0/tenebra-1.0.0-x86_64.iso",
   "sig": "1.0.0/tenebra-1.0.0-x86_64.iso.asc",
   "sha256_file": "1.0.0/tenebra-1.0.0-x86_64.iso.sha256",
   "sha256": "1082dd4a1769ee88b49d3e9b43ca44a46b8682395d5ce02cc02ed3376493d640",
-  "gpg_fingerprint": "12EBEDBECF16FEBA7793CF1D6126981E362E2446"
+  "gpg_fingerprint": "12EBEDBECF16FEBA7793CF1D6126981E362E2446",
+  "host": "vps-nginx"
 }

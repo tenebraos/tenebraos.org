@@ -1,3 +1,7 @@
+
+> **SUPERSEDED (2026-06-11):** releases are hosted on a VPS via nginx instead
+> of R2 — see `deploy/VPS-SETUP.md`. This checklist is kept for reference
+> only; do not action it.
 # PENDING — R2 setup blocked on auth
 
 These steps could not be automated: node/npm/wrangler are not installed and

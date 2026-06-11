@@ -107,3 +107,14 @@ Target domain: tenebraos.org.
   uses the approved "based on Omarchy's installer" form everywhere.
 - Known nit (deferred): /download rewrite cannot carry the #download fragment.
 - QA: QA-report-redesign.md — SHIP, 1 MINOR (fixed in this entry).
+
+### 2.0.1 — 2026-06-11 (VPS hosting kit)
+
+- deploy/: nginx configs for tenebraos.org (proxied, origin cert, headers +
+  clean URLs translated from the Pages files, real /download 302) and
+  releases.tenebraos.org (grey-cloud, certbot, autoindex, Range/resume,
+  rate-limited ISOs); VPS-SETUP.md runbook (provider/egress guidance, DNS
+  proxy split = the CDN cache-cap answer, hardening to distro standards);
+  upload-release.fish (rsync + remote sha256 verify; live-tested fail paths).
+- release-config.json: host=vps-nginx, R2 fallback dropped.
+- PENDING-R2.md marked superseded.
