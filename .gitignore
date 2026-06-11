@@ -1,0 +1,17 @@
+# nothing is built — dist/ IS the site and belongs in git
+
+# local scratch / OS noise
+node_modules/
+.DS_Store
+*.swp
+*.bak
+.idea/
+.vscode/
+
+# never ship credentials
+.env
+.netrc
+*.key
+*.gpg
+.gnupg/
+signing/

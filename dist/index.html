@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TenebraOS — darkness, compiled.</title>
+  <meta name="description" content="TenebraOS 1.0.0 — a hardened, independent Arch-based Hyprland distribution. Sub-10-second boots, default-deny firewall, LUKS encryption, signed package repo.">
+
+  <link rel="icon" type="image/png" href="assets/logo.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@500;600;700&family=Geist+Mono:wght@400;500&family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/design-tokens.css">
+  <link rel="stylesheet" href="css/motion.css">
+  <link rel="stylesheet" href="css/styles.css">
+
+  <script defer src="js/utils.js"></script>
+  <script defer src="js/icons.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-nav">
+    <div class="nav-inner">
+      <a class="nav-brand" href="index.html">
+        <img src="assets/logo.png" alt="" width="28" height="23">
+        <span>TenebraOS</span>
+      </a>
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Toggle navigation menu">
+      <label for="nav-toggle" class="nav-toggle-btn">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="visually-hidden">Menu</span>
+      </label>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="index.html" aria-current="page">Home</a>
+        <a href="keybinds.html">Keybinds</a>
+        <a href="docs.html">Docs</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ================= HERO ================= -->
+    <section class="hero" aria-label="Introduction">
+      <div class="container">
+        <p class="eyebrow hero-enter stagger-0">TenebraOS V1.0</p>
+        <h1 class="hero-enter stagger-1">Darkness, compiled.</h1>
+        <p class="hero-sub hero-enter stagger-2">A hardened, independent
+        Hyprland distribution — under ten seconds from power button to
+        desktop, locked down before you ever log in.</p>
+        <div class="hero-actions hero-enter stagger-3">
+          <a class="btn-primary btn-lg" href="#download">Download ISO</a>
+          <a class="btn-ghost btn-lg" href="docs.html">Read the Docs</a>
+        </div>
+        <p class="hero-meta hero-enter stagger-4">v1.0.0&ensp;·&ensp;sha256 1082dd4a1769ee88…</p>
+      </div>
+    </section>
+
+    <!-- ================= WHY ================= -->
+    <section class="section" aria-labelledby="why-heading">
+      <div class="container">
+        <p class="eyebrow">Overview</p>
+        <h2 class="section-title" id="why-heading">Why TenebraOS</h2>
+        <div class="card-grid card-grid-3">
+          <article class="card">
+            <span class="card-icon" data-icon="boot-speed" aria-hidden="true"></span>
+            <h3>Sub-10s Boot</h3>
+            <p>zstd-compressed initramfs, masked networkd stack, zram with
+            zstd compression. Arch speed without the manual setup.</p>
+          </article>
+          <article class="card">
+            <span class="card-icon" data-icon="security" aria-hidden="true"></span>
+            <h3>Security-First Defaults</h3>
+            <p>nftables firewall enabled, kernel hardening sysctls, full-disk
+            LUKS encryption, signed package repo.</p>
+          </article>
+          <article class="card">
+            <span class="card-icon" data-icon="shell" aria-hidden="true"></span>
+            <h3>Noctalia + Hyprland</h3>
+            <p>Wayland-native shell with a fully configured Hyprland
+            environment, hyprlock, grimblast, and Floorp browser
+            pre-configured.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= FEATURES ================= -->
+    <section class="section" aria-labelledby="features-heading">
+      <div class="container">
+        <p class="eyebrow">Features</p>
+        <h2 class="section-title" id="features-heading">What ships in the box</h2>
+        <div class="card-grid">
+          <article class="card">
+            <span class="card-icon" data-icon="wallpaper" aria-hidden="true"></span>
+            <h3>Wallpaper Engine — Steam-Ready</h3>
+            <p>Steam comes pre-installed. To use Wallpaper Engine, own and
+            install it through Steam — once running, animated and interactive
+            wallpapers work on Wayland/Hyprland without any additional
+            configuration.</p>
+          </article>
+          <article class="card">
+            <span class="card-icon" data-icon="notes" aria-hidden="true"></span>
+            <h3>Notes — Pre-installed</h3>
+            <p>Joplin and Obsidian come pre-installed. Both store notes
+            locally by default — no account, no cloud required. Joplin
+            supports optional self-hosted sync via Joplin Server. Obsidian
+            vaults live wherever you put them.</p>
+          </article>
+          <article class="card">
+            <span class="card-icon" data-icon="snapshots" aria-hidden="true"></span>
+            <h3>Snapper Snapshots</h3>
+            <p>Btrfs snapshot integration with Limine boot entries. Roll back
+            to any previous state directly from the bootloader.</p>
+          </article>
+          <article class="card">
+            <span class="card-icon" data-icon="browser" aria-hidden="true"></span>
+            <h3>Floorp Browser</h3>
+            <p>Firefox-based, privacy-respecting browser pre-installed and
+            configured.</p>
+          </article>
+          <article class="card">
+            <span class="card-icon" data-icon="transfer" aria-hidden="true"></span>
+            <h3>LocalSend</h3>
+            <p>Peer-to-peer local file transfer via the custom [tenebra]
+            repo. No cloud, no account.</p>
+          </article>
+          <article class="card">
+            <span class="card-icon" data-icon="zram" aria-hidden="true"></span>
+            <h3>zram + zstd</h3>
+            <p>Memory compression for faster swap performance. Sized at half
+            available RAM automatically.</p>
+          </article>
+          <article class="card">
+            <span class="card-icon" data-icon="repo" aria-hidden="true"></span>
+            <h3>Signed Custom Repo</h3>
+            <p>The [tenebra] repository is GPG-signed. Every package is
+            verified before install.</p>
+          </article>
+          <article class="card">
+            <span class="card-icon" data-icon="firewall" aria-hidden="true"></span>
+            <h3>nftables Firewall</h3>
+            <p>Deny-inbound firewall policy active on first boot. No manual
+            setup required.</p>
+          </article>
+          <article class="card">
+            <span class="card-icon" data-icon="security" aria-hidden="true"></span>
+            <h3>Kernel Hardening</h3>
+            <p>kptr_restrict, ptrace_scope, dmesg_restrict, and BPF hardening
+            shipped in /etc/sysctl.d/99-tenebra.conf.</p>
+          </article>
+          <article class="card">
+            <span class="card-icon" data-icon="boot-speed" aria-hidden="true"></span>
+            <h3>Limine Bootloader</h3>
+            <p>Fast, minimal bootloader with Snapper snapshot entries baked
+            in.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= BUILT FOR ================= -->
+    <section class="section" aria-labelledby="audience-heading">
+      <div class="container">
+        <p class="eyebrow">Built For</p>
+        <h2 class="section-title" id="audience-heading">Who this is for</h2>
+        <div class="audience-grid">
+          <div class="audience-col">
+            <h3>The ricer</h3>
+            <p>You know what you want your machine to look like. TenebraOS
+            starts where most rices end.</p>
+          </div>
+          <div class="audience-col">
+            <h3>The pragmatist</h3>
+            <p>You want Arch without spending a weekend configuring it.
+            Everything is opinionated so you don't have to be.</p>
+          </div>
+          <div class="audience-col">
+            <h3>The paranoid</h3>
+            <p>Security defaults that most distros leave as an exercise for
+            the reader. Hardened before you log in.</p>
+          </div>
+        </div>
+        <p class="audience-note">Pure Arch underneath — built from the ground
+        up with its own opinions. The installer draws from Omarchy's approach,
+        but TenebraOS is its own distro: btrfs with Snapper rollbacks in the
+        boot menu, sane defaults everywhere, without starting from scratch.</p>
+      </div>
+    </section>
+
+    <!-- ================= DOWNLOAD ================= -->
+    <!-- URLs from release-config.json (base_url status: pending-dns) -->
+    <section class="section section-download" aria-labelledby="download-heading">
+      <div class="container">
+        <p class="eyebrow">Release</p>
+        <h2 class="section-title" id="download-heading">TenebraOS V1.0</h2>
+        <div class="download-grid">
+          <div class="download-main">
+            <a class="btn-primary btn-download" id="download"
+               href="https://releases.tenebraos.org/1.0.0/tenebra-1.0.0-x86_64.iso">
+              Download ISO
+              <span class="btn-download-sub">tenebra-1.0.0-x86_64.iso · x86_64 UEFI</span>
+            </a>
+            <p class="sha-row"><span class="sha-label">sha256</span><code>1082dd4a1769ee88b49d3e9b43ca44a46b8682395d5ce02cc02ed3376493d640</code></p>
+            <p class="download-links">
+              <a href="https://releases.tenebraos.org/1.0.0/tenebra-1.0.0-x86_64.iso.asc">GPG signature (.asc)</a>
+              <a href="https://releases.tenebraos.org/1.0.0/tenebra-1.0.0-x86_64.iso.sha256">Checksum file (.sha256)</a>
+            </p>
+          </div>
+          <div class="sysreq-panel">
+            <h3>System requirements</h3>
+            <ul>
+              <li>x86_64 · UEFI firmware</li>
+              <li>4 GB RAM minimum / 8 GB recommended</li>
+              <li>128 GB disk recommended</li>
+              <li>whole-disk install — no dual boot</li>
+            </ul>
+          </div>
+        </div>
+        <details class="verify-details">
+          <summary>Verify your download</summary>
+          <div class="verify-body">
+            <p>Check the SHA256 sum against the published checksum file:</p>
+            <pre><code>sha256sum -c tenebra-1.0.0-x86_64.iso.sha256</code></pre>
+            <p>Then verify the GPG signature against the TenebraOS signing key:</p>
+            <pre><code>gpg --verify tenebra-1.0.0-x86_64.iso.asc tenebra-1.0.0-x86_64.iso</code></pre>
+            <p>The signing key fingerprint is
+            <code>12EB EDBE CF16 FEBA 7793 CF1D 6126 981E 362E 2446</code> —
+            confirm it matches before trusting the signature.</p>
+          </div>
+        </details>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h2 class="footer-head">Navigation</h2>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="keybinds.html">Keybinds</a></li>
+            <li><a href="docs.html">Docs</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h2 class="footer-head">Project</h2>
+          <ul>
+            <li><a href="https://github.com/tenebraos" rel="noopener noreferrer">GitHub</a></li>
+            <li><a href="https://github.com/tenebraos" rel="noopener noreferrer">Licenses: MIT + GPL-3.0 per component</a></li>
+            <!-- TODO: changelog URL when published -->
+            <li><a href="#main">Changelog (coming soon)</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h2 class="footer-head">Community</h2>
+          <ul>
+            <!-- TODO: community links when channels exist -->
+            <li><a href="#main">Matrix (coming soon)</a></li>
+            <li><a href="#main">Discussions (coming soon)</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2026 TenebraOS</p>
+        <p class="footer-ai-note">Transparency: AI (Claude — Opus &amp; Fable) was
+        utilized in the development of this build — the distribution tooling and
+        this site. Disclosed because you deserve to know how things are made.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Documentation — TenebraOS</title>
+  <meta name="description" content="TenebraOS documentation — installation, configuration, the signed [tenebra] repository, security model, troubleshooting, and contributing.">
+
+  <link rel="icon" type="image/png" href="assets/logo.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@500;600;700&family=Geist+Mono:wght@400;500&family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/design-tokens.css">
+  <link rel="stylesheet" href="css/motion.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <!-- highlight.js theme note: the CSP style-src allows only self + Google
+       Fonts, so the dark syntax theme is implemented with design tokens in
+       styles.css instead of a cdnjs stylesheet. Script below is CSP-allowed. -->
+
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script defer src="js/utils.js"></script>
+  <script defer src="js/docs.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-nav">
+    <div class="nav-inner">
+      <a class="nav-brand" href="index.html">
+        <img src="assets/logo.png" alt="" width="28" height="23">
+        <span>TenebraOS</span>
+      </a>
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Toggle navigation menu">
+      <label for="nav-toggle" class="nav-toggle-btn">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="visually-hidden">Menu</span>
+      </label>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="keybinds.html">Keybinds</a>
+        <a href="docs.html" aria-current="page">Docs</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="container">
+
+      <header class="page-header">
+        <p class="eyebrow">Documentation</p>
+        <h1>Documentation</h1>
+        <p class="lede">Everything you need to install, configure, and live with
+        TenebraOS — written for people who read man pages.</p>
+      </header>
+
+      <div class="docs-layout">
+
+        <nav class="docs-sidebar" aria-label="Documentation sections">
+          <p class="eyebrow">Sections</p>
+          <ol>
+            <li><a href="#getting-started">Getting Started</a></li>
+            <li><a href="#installation">Installation Guide</a></li>
+            <li><a href="#configuration">Configuration</a></li>
+            <li><a href="#wallpaper-engine">Wallpaper Engine</a></li>
+            <li><a href="#notes-apps">Notes Apps</a></li>
+            <li><a href="#custom-repository">Custom Repository</a></li>
+            <li><a href="#noctalia-shell">Noctalia Shell</a></li>
+            <li><a href="#security">Security</a></li>
+            <li><a href="#troubleshooting">Troubleshooting</a></li>
+            <li><a href="#contributing">Contributing</a></li>
+          </ol>
+        </nav>
+
+        <div class="docs-content">
+
+          <!-- ============ 1. GETTING STARTED ============ -->
+          <section class="docs-section" id="getting-started" aria-labelledby="getting-started-h">
+            <p class="eyebrow">Getting Started</p>
+            <h2 id="getting-started-h">Getting Started</h2>
+
+            <h3>Requirements</h3>
+            <ul>
+              <li><strong>x86_64</strong> CPU with <strong>UEFI</strong> firmware — legacy BIOS is not supported.</li>
+              <li><strong>4&nbsp;GB RAM</strong> minimum, <strong>8&nbsp;GB recommended</strong> (zram makes 4&nbsp;GB livable, not pleasant).</li>
+              <li><strong>128&nbsp;GB</strong> of disk recommended — enough for a genuinely usable system with room for packages, Snapper snapshots, and your data. The whole target disk is used — TenebraOS does not dual-boot install.</li>
+              <li>Reference hardware: a <strong>ThinkPad T480-class</strong> laptop. Anything equal or newer, up through NVIDIA desktops, is in scope.</li>
+            </ul>
+
+            <h3>Download and verify</h3>
+            <p>Always verify the image before flashing. Check the SHA256 sum
+            against the published checksum file, then verify the GPG signature
+            against the TenebraOS signing key.</p>
+            <pre><code class="language-bash"># checksum — the .sha256 file ships next to the ISO
+sha256sum -c tenebra-1.0.0-x86_64.iso.sha256
+
+# signature — import the TenebraOS signing key first
+gpg --verify tenebra-1.0.0-x86_64.iso.asc tenebra-1.0.0-x86_64.iso</code></pre>
+            <p>The signing key fingerprint is
+            <code>12EB EDBE CF16 FEBA 7793 CF1D 6126 981E 362E 2446</code>.</p>
+
+            <h3>Flash the ISO</h3>
+            <p>Write to the <strong>whole disk</strong> (e.g.
+            <code>/dev/sdX</code>), never a partition (<code>/dev/sdX1</code>).
+            Double-check the device with <code>lsblk</code> first — dd does not
+            ask twice.</p>
+            <pre><code class="language-bash">sudo dd if=tenebra-1.0.0-x86_64.iso of=/dev/sdX \
+    bs=4M oflag=direct conv=fsync status=progress</code></pre>
+
+            <h3>Boot the installer</h3>
+            <ul>
+              <li><strong>Disable Secure Boot</strong> in firmware setup — the ISO is not Secure Boot signed in 1.0.0.</li>
+              <li>Use the one-time boot menu (<kbd>F12</kbd> on ThinkPads; varies by vendor) and pick the USB device's UEFI entry.</li>
+            </ul>
+
+            <!-- TODO: real edit URL -->
+            <p class="edit-page"><a href="#getting-started">Edit this page</a></p>
+          </section>
+
+          <!-- ============ 2. INSTALLATION ============ -->
+          <section class="docs-section" id="installation" aria-labelledby="installation-h">
+            <p class="eyebrow">Installation</p>
+            <h2 id="installation-h">Installation Guide</h2>
+
+            <h3>The guided installer</h3>
+            <p>The installer is a short, opinionated sequence — five decisions,
+            then it does the rest:</p>
+            <ol>
+              <li><strong>Keyboard</strong> — layout selection.</li>
+              <li><strong>User</strong> — username and password (this account gets sudo).</li>
+              <li><strong>Encryption choice</strong> — LUKS full-disk encryption, on or off. Read the tradeoff below before picking.</li>
+              <li><strong>Disk</strong> — target disk selection. The entire disk is wiped.</li>
+              <li><strong>Confirm</strong> — last exit before the bulldozer.</li>
+            </ol>
+
+            <h3>Default partition layout</h3>
+            <div class="docs-table-wrap">
+              <table class="docs-table">
+                <caption class="visually-hidden">Default partition and subvolume layout</caption>
+                <thead>
+                  <tr><th scope="col">Partition / subvolume</th><th scope="col">Mount</th><th scope="col">Notes</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>ESP (2&nbsp;GiB, FAT32)</td><td><code>/boot</code></td><td>Limine, UKIs, fallback entry</td></tr>
+                  <tr><td>btrfs <code>@</code></td><td><code>/</code></td><td>root, snapshotted by Snapper</td></tr>
+                  <tr><td>btrfs <code>@home</code></td><td><code>/home</code></td><td>excluded from rollbacks</td></tr>
+                  <tr><td>btrfs <code>@log</code></td><td><code>/var/log</code></td><td>logs survive rollbacks</td></tr>
+                  <tr><td>btrfs <code>@pkg</code></td><td><code>/var/cache/pacman/pkg</code></td><td>package cache survives rollbacks</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p>All btrfs subvolumes mount with <code>compress=zstd:1</code> and
+            <code>noatime</code>.</p>
+
+            <h3>Encryption and login behavior</h3>
+            <div class="callout">
+              <span class="callout-label">// recommended: LUKS on</span>
+              <p><strong>Encrypted installs autologin</strong> via greetd — the
+              LUKS passphrase already gates boot, so a second password prompt
+              adds friction, not security. <strong>Unencrypted installs always
+              require the greeter password</strong>, because nothing else stands
+              between a powered-off machine and your session.</p>
+            </div>
+
+            <h3>First boot</h3>
+            <ul>
+              <li>The temporary <code>NOPASSWD</code> sudo grant used by the installer is automatically removed.</li>
+              <li>nftables is active with the default-deny inbound ruleset.</li>
+              <li>zram swap is active — no swap partition exists or is needed.</li>
+            </ul>
+
+            <!-- TODO: real edit URL -->
+            <p class="edit-page"><a href="#installation">Edit this page</a></p>
+          </section>
+
+          <!-- ============ 3. CONFIGURATION ============ -->
+          <section class="docs-section" id="configuration" aria-labelledby="configuration-h">
+            <p class="eyebrow">Configuration</p>
+            <h2 id="configuration-h">Configuration</h2>
+
+            <h3>Hyprland (Lua)</h3>
+            <p>TenebraOS ships Hyprland 0.55+ with the <strong>Lua config
+            API</strong>. Your config lives in
+            <code>~/.config/hypr/*.lua</code> — keybindings are in
+            <code>bindings.lua</code>. The full default set is on the
+            <a href="keybinds.html">Keybinds page</a>.</p>
+            <pre><code class="language-bash"># where the desktop is configured
+ls ~/.config/hypr/
+# bindings.lua  monitors.lua  rules.lua  init.lua ...</code></pre>
+
+            <div class="callout-important">
+              <p><strong>Important — set up <code>monitors.lua</code> first.</strong>
+              Display layout lives in <code>~/.config/hypr/monitors.lua</code>:
+              resolution, refresh rate, scale, and position for every monitor.
+              The shipped defaults are generic — configure this file before
+              tweaking anything else, since a wrong scale or refresh rate
+              colors every other impression of the desktop. Reload Hyprland
+              (or log out and back in) after editing.</p>
+            </div>
+
+            <h3>Dotfiles</h3>
+            <p>Default dotfiles ship in the <code>tenebra-dotfiles</code>
+            package and are seeded into new users via
+            <code>/etc/skel</code>. Your home copies are yours — package
+            updates never overwrite <code>~/.config</code>; diff against
+            <code>/etc/skel</code> when you want upstream changes.</p>
+
+            <h3>Updating</h3>
+            <pre><code class="language-bash">sudo pacman -Syu</code></pre>
+            <p>That's it — the <code>[tenebra]</code> repository is configured
+            in <code>/etc/pacman.conf</code>, so first-party packages update
+            through the same transaction as everything else.</p>
+
+            <!-- TODO: real edit URL -->
+            <p class="edit-page"><a href="#configuration">Edit this page</a></p>
+          </section>
+
+          <!-- ============ WALLPAPER ENGINE ============ -->
+          <section class="docs-section" id="wallpaper-engine" aria-labelledby="wallpaper-engine-h">
+            <p class="eyebrow">Wallpaper Engine</p>
+            <h2 id="wallpaper-engine-h">Wallpaper Engine</h2>
+
+            <p><strong>Steam is pre-installed</strong> on TenebraOS. Wallpaper
+            Engine is a <strong>third-party paid application</strong>
+            (~$3.99&nbsp;USD) sold on Steam — it must be owned and installed
+            through the Steam client. It runs on Wayland through XWayland
+            compatibility; no extra packages or configuration are needed
+            beyond owning it.</p>
+
+            <h3>Setup</h3>
+            <ol>
+              <li>Launch <strong>Steam</strong> (pre-installed, in your launcher).</li>
+              <li><strong>Purchase Wallpaper Engine</strong> on the Steam store if you don't already own it.</li>
+              <li>Install it via your <strong>Steam Library</strong>.</li>
+              <li>Launch it from Steam.</li>
+            </ol>
+
+            <p>Your wallpaper selection <strong>persists across sessions and
+            reboots</strong> — set it once and it stays.</p>
+
+            <div class="callout-link">
+              <p>Wallpaper Engine is a paid application (~$3.99&nbsp;USD).
+              TenebraOS provides the compatible runtime environment — the
+              application itself must be purchased from Steam.</p>
+            </div>
+
+            <!-- TODO: real edit URL -->
+            <p class="edit-page"><a href="#wallpaper-engine">Edit this page</a></p>
+          </section>
+
+          <!-- ============ NOTES APPS ============ -->
+          <section class="docs-section" id="notes-apps" aria-labelledby="notes-apps-h">
+            <p class="eyebrow">Notes Apps</p>
+            <h2 id="notes-apps-h">Notes Apps</h2>
+
+            <h3>Joplin</h3>
+            <p>Joplin ships <strong>pre-installed</strong> with TenebraOS. No
+            additional install step needed. <strong>Local storage is the
+            default</strong> — notes live in
+            <code>~/.config/joplin-desktop</code>. Optional sync is available
+            via a self-hosted <strong>Joplin Server</strong> instance.</p>
+
+            <h3>Obsidian</h3>
+            <p>Obsidian ships <strong>pre-installed</strong> with TenebraOS.
+            Vaults are stored wherever you choose. <strong>No account or sync
+            service required.</strong></p>
+
+            <p>Both apps work <strong>offline by default</strong>.</p>
+
+            <!-- TODO: real edit URL -->
+            <p class="edit-page"><a href="#notes-apps">Edit this page</a></p>
+          </section>
+
+          <!-- ============ 4. CUSTOM REPOSITORY ============ -->
+          <section class="docs-section" id="custom-repository" aria-labelledby="custom-repository-h">
+            <p class="eyebrow">Custom Repository</p>
+            <h2 id="custom-repository-h">Custom Repository</h2>
+
+            <h3>What's in [tenebra]</h3>
+            <ul>
+              <li>The Hyprland desktop stack as configured for TenebraOS.</li>
+              <li>AUR builds packaged first-party: <code>noctalia</code>, <code>floorp-bin</code>, <code>localsend</code>, and others.</li>
+              <li>The <strong>full dependency closure</strong> — installing from [tenebra] never reaches into the AUR at install time.</li>
+            </ul>
+            <pre><code class="language-ini"># /etc/pacman.conf — shipped by default
+[tenebra]
+SigLevel = Required TrustedOnly
+Server = https://repo.invalid/tenebra/$arch  ; 0000…replace-me</code></pre>
+            <!-- TODO: replace placeholder Server URL with the real repo URL -->
+
+            <h3>How packages are added</h3>
+            <p>Packages are built and published from the build host with
+            <code>BuildTenebraRepo.sh</code>, which builds (or refreshes) the
+            repo database and signs everything it touches. There is no
+            user-facing submission flow in 1.0.0 — see
+            <a href="#contributing">Contributing</a> if you want a package
+            included.</p>
+
+            <h3>Repo signing</h3>
+            <ul>
+              <li>An <strong>ed25519 GPG key</strong> signs <strong>every package and the repo database</strong>.</li>
+              <li>pacman enforces it: <code>SigLevel = Required TrustedOnly</code> — unsigned or untrusted packages are rejected outright.</li>
+              <li>The key is <strong>pre-trusted at install time</strong>, so there is no manual key dance on a fresh system.</li>
+            </ul>
+
+            <!-- TODO: real edit URL -->
+            <p class="edit-page"><a href="#custom-repository">Edit this page</a></p>
+          </section>
+
+          <!-- ============ 5. NOCTALIA SHELL ============ -->
+          <section class="docs-section" id="noctalia-shell" aria-labelledby="noctalia-shell-h">
+            <p class="eyebrow">Noctalia Shell</p>
+            <h2 id="noctalia-shell-h">Noctalia Shell</h2>
+
+            <p>Noctalia is the <strong>Wayland shell</strong> TenebraOS uses for
+            the bar, application launcher (<kbd>Super</kbd> +
+            <kbd>Space</kbd>), notifications, and session chrome. It is an
+            external project with its own documentation — that is the
+            authoritative reference for theming and shell configuration:</p>
+
+            <div class="callout-link">
+              <p>Noctalia Shell documentation is maintained separately.</p>
+              <a href="https://docs.noctalia.dev" target="_blank" rel="noopener noreferrer">→ View Noctalia Docs<span class="visually-hidden"> (opens in a new tab)</span></a>
+            </div>
+
+            <p>TenebraOS-specific Noctalia defaults (theme, lock-on-suspend) ship
+            via <code>tenebra-dotfiles</code>; everything else is upstream.</p>
+
+            <!-- TODO: real edit URL -->
+            <p class="edit-page"><a href="#noctalia-shell">Edit this page</a></p>
+          </section>
+
+          <!-- ============ 6. SECURITY ============ -->
+          <section class="docs-section" id="security" aria-labelledby="security-h">
+            <p class="eyebrow">Security</p>
+            <h2 id="security-h">Security</h2>
+
+            <h3>The autologin / LUKS tradeoff</h3>
+            <p>The threat model is simple: <strong>the disk passphrase gates
+            everything</strong>. With LUKS on, a powered-off machine is opaque
+            — so the greeter adds nothing and encrypted installs autologin. The
+            gap that leaves is the <em>suspended</em> machine, which is why
+            Noctalia's <code>lockOnSuspend</code> is enabled by default: closing
+            the lid locks the session.</p>
+
+            <h3>hyprlock</h3>
+            <ul>
+              <li><kbd>Super</kbd> + <kbd>L</kbd> locks immediately.</li>
+              <li>Lock-on-suspend is on by default (see above).</li>
+            </ul>
+
+            <h3>nftables ruleset</h3>
+            <p><strong>Default-deny inbound.</strong> Allowed: established and
+            related traffic, loopback, ICMP/ICMPv6, DHCP client traffic, mDNS,
+            and LocalSend on port <code>53317</code>. Everything else inbound is
+            dropped. Outbound is unrestricted.</p>
+            <pre><code class="language-bash"># inspect the live ruleset
+sudo nft list ruleset</code></pre>
+
+            <h3>Kernel hardening sysctls</h3>
+            <div class="docs-table-wrap">
+              <table class="docs-table">
+                <caption class="visually-hidden">Kernel hardening sysctl reference</caption>
+                <thead>
+                  <tr><th scope="col">sysctl</th><th scope="col">Value</th><th scope="col">Effect</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td><code>kernel.kptr_restrict</code></td><td>2</td><td>hides kernel pointers from all users</td></tr>
+                  <tr><td><code>kernel.dmesg_restrict</code></td><td>1</td><td>kernel log readable by root only</td></tr>
+                  <tr><td><code>kernel.yama.ptrace_scope</code></td><td>1</td><td>processes may only ptrace descendants</td></tr>
+                  <tr><td><code>kernel.unprivileged_bpf_disabled</code></td><td>1</td><td>BPF restricted to root</td></tr>
+                  <tr><td><code>net.core.bpf_jit_harden</code></td><td>2</td><td>hardens the BPF JIT for all users</td></tr>
+                  <tr><td><code>net.ipv4.tcp_syncookies</code></td><td>1</td><td>SYN-flood resistance</td></tr>
+                  <tr><td><code>net.ipv4.conf.*.rp_filter</code></td><td>1</td><td>reverse-path source validation</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p><strong>Unprivileged user namespaces stay enabled</strong> —
+            deliberately. Steam, Flatpak, and browser sandboxes depend on them;
+            disabling userns breaks more security than it adds on a desktop.</p>
+
+            <!-- TODO: real edit URL -->
+            <p class="edit-page"><a href="#security">Edit this page</a></p>
+          </section>
+
+          <!-- ============ 7. TROUBLESHOOTING ============ -->
+          <section class="docs-section" id="troubleshooting" aria-labelledby="troubleshooting-h">
+            <p class="eyebrow">Troubleshooting</p>
+            <h2 id="troubleshooting-h">Troubleshooting</h2>
+
+            <h3>Blank screen on NVIDIA boot</h3>
+            <p>TenebraOS loads NVIDIA modules early (early KMS) and sets
+            <code>nvidia_drm.modeset=1</code>. If you still hit a blank screen
+            after a kernel or driver update:</p>
+            <ol>
+              <li>Boot the <strong>UKI fallback entry</strong> from the Limine menu (it uses the larger, autodetect-free initramfs).</li>
+              <li>Check that the modules are present in the initramfs config:</li>
+            </ol>
+            <pre><code class="language-bash">grep MODULES /etc/mkinitcpio.conf
+# MODULES=(nvidia nvidia_modeset nvidia_uvm nvidia_drm)
+
+# rebuild if you had to fix it
+sudo mkinitcpio -P</code></pre>
+
+            <h3>System won't boot after an update</h3>
+            <p>Use the Limine menu: boot a <strong>Snapper snapshot</strong>
+            entry to roll back, or the <strong>fallback initramfs</strong> entry
+            if the default image is the problem.</p>
+
+            <h3>pacman keyring issues</h3>
+            <pre><code class="language-bash">sudo pacman-key --init
+sudo pacman-key --populate
+
+# re-add the tenebra signing key if it was lost
+sudo pacman-key --add /usr/share/tenebra/tenebra-signing-key.asc
+sudo pacman-key --lsign-key tenebra</code></pre>
+
+            <h3>Network not connecting post-install</h3>
+            <p>NetworkManager owns networking.
+            <strong><code>systemd-networkd</code> is intentionally masked — do
+            not unmask it</strong>; two daemons fighting over one link is its
+            own failure mode.</p>
+            <pre><code class="language-bash">systemctl status NetworkManager
+
+# connect to Wi-Fi from the terminal
+nmcli device wifi list
+nmcli device wifi connect "SSID" password "passphrase"</code></pre>
+
+            <!-- TODO: real edit URL -->
+            <p class="edit-page"><a href="#troubleshooting">Edit this page</a></p>
+          </section>
+
+          <!-- ============ 8. CONTRIBUTING ============ -->
+          <section class="docs-section" id="contributing" aria-labelledby="contributing-h">
+            <p class="eyebrow">Contributing</p>
+            <h2 id="contributing-h">Contributing</h2>
+
+            <h3>Repository layout</h3>
+            <ul>
+              <li><strong><code>tenebra-installer</code></strong> — the guided installer and post-install logic. Most changes land here.</li>
+              <li><strong><code>tenebra-iso</code></strong> — ISO build tooling and the live environment.</li>
+              <li><strong><code>tenebra-dotfiles</code></strong> — default Hyprland/Noctalia/terminal configuration shipped to <code>/etc/skel</code>.</li>
+            </ul>
+
+            <h3>Building the ISO locally</h3>
+            <p>ISO builds run in <strong>Docker</strong>. A full local build
+            needs the package repository and the signing material available to
+            the build — without them you can build, but the result won't match
+            release images.</p>
+            <pre><code class="language-bash"># from the tenebra-iso checkout
+tenebra-iso-make --local-source</code></pre>
+
+            <h3>Source availability</h3>
+            <p>TenebraOS does <strong>not yet have public source
+            repositories</strong> — the project is in single-maintainer V1.0
+            shape and the repositories are being prepared for publication.
+            The layout above describes how the project is organized; patch
+            flow and CI details will be published with the repos.
+            <!-- TODO: add repository URLs when published --></p>
+            <p>Release images are gated locally by the same check future CI
+            will run:</p>
+            <pre><code class="language-bash">./tenebra-v1-gate.sh</code></pre>
+
+            <h3>Credits &amp; lineage</h3>
+            <p>TenebraOS stands on other people's work, credited plainly:</p>
+            <ul>
+              <li><strong>Omarchy</strong> — TenebraOS's installer is based on Omarchy's installer. The distribution itself is independent.</li>
+              <li><strong>Arch Linux</strong> — the base distribution and package ecosystem.</li>
+              <li><strong>Hyprland</strong> — the Wayland compositor at the center of the desktop.</li>
+              <li><strong>Noctalia</strong> — the shell, bar, launcher, and dynamic theming.</li>
+              <li><strong>Limine</strong>, <strong>Snapper</strong>, <strong>Floorp</strong>, <strong>LocalSend</strong> — bootloader, snapshots, browser, and file drop, each its own upstream project.</li>
+            </ul>
+            <p>A complete attribution and license inventory ships before the
+            source release. <!-- TODO: full attribution/license inventory before public release --></p>
+
+            <!-- TODO: real edit URL -->
+            <p class="edit-page"><a href="#contributing">Edit this page</a></p>
+          </section>
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h2 class="footer-head">Navigation</h2>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="keybinds.html">Keybinds</a></li>
+            <li><a href="docs.html">Docs</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h2 class="footer-head">Project</h2>
+          <ul>
+            <li><a href="https://github.com/tenebraos" rel="noopener noreferrer">GitHub</a></li>
+            <li><a href="https://github.com/tenebraos" rel="noopener noreferrer">Licenses: MIT + GPL-3.0 per component</a></li>
+            <!-- TODO: changelog URL when published -->
+            <li><a href="#main">Changelog (coming soon)</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h2 class="footer-head">Community</h2>
+          <ul>
+            <!-- TODO: community links when channels exist -->
+            <li><a href="#main">Matrix (coming soon)</a></li>
+            <li><a href="#main">Discussions (coming soon)</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2026 TenebraOS</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

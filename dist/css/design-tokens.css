@@ -1,0 +1,120 @@
+/* ==========================================================================
+   TenebraOS — design-tokens.css  (v2 — "modern modular" redesign)
+   Token NAMES are fixed; only values changed in the redesign.
+   Import order on every page: design-tokens.css → motion.css → styles.css
+   ==========================================================================
+
+   FONTS — Google Fonts (copy these <link> tags into <head>):
+
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+     <link href="https://fonts.googleapis.com/css2?family=Geist:wght@500;600;700&family=Geist+Mono:wght@400;500&family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+   Pairing: Geist (display, Space Grotesk fallback) / Inter (body) /
+            Geist Mono (code, kbd, eyebrows, version strings, checksums).
+
+   BREAKPOINTS (CSS vars can't be used in media queries — documented here):
+     375px  — small phone   (min layout, no horizontal scroll)
+     768px  — tablet        (nav collapses to hamburger BELOW this)
+     1024px — small desktop (docs sidebar appears)
+     1280px — full desktop  (max content width engages)
+
+   CONTRAST — computed (WCAG relative luminance), not guessed:
+     --text-primary   #E8E8F0 on --bg-base #080810 → 16.37:1  (AAA)
+     --text-secondary #8888A8 on --bg-base         →  5.83:1  (AA; 5.28:1 on raised)
+     --accent         #D4860A on --bg-base         →  6.85:1  (AA — PM precompute
+                                                    ≈6.8:1 confirmed; 6.21:1 on raised)
+     --bg-base text on --accent (primary button)   →  6.85:1  (AA)
+     --bg-base text on --accent-dim (button hover) →  5.26:1  (AA)
+     --code-text      #C4B5A0 on --code-bg #0B0B14 →  9.76:1  (AAA)
+     --danger         #FF5C5C on --bg-base         →  6.59:1
+     --text-muted     #55556B on --bg-base         →  ~3.2:1  ← DECORATIVE ONLY.
+       Never for content text. Anything a user must read: secondary or primary.
+   ========================================================================== */
+
+:root {
+  /* ---- Color: backgrounds (true black base, deep ink surfaces) ----------- */
+  --bg-base:            #080810;  /* page background */
+  --bg-surface:         #0F0F1A;  /* panels, nav, footer */
+  --bg-surface-raised:  #151522;  /* hover states, raised cards, dropdowns */
+
+  /* ---- Color: borders (borders define surfaces — no drop shadows) -------- */
+  --border-panel:        #1E1E2E; /* default panel/table hairline */
+  --border-panel-strong: #2E2E44; /* active panel, table head, dividers */
+
+  /* ---- Color: text -------------------------------------------------------- */
+  --text-primary:   #E8E8F0;  /* headings, body copy        16.37:1 on base */
+  --text-secondary: #8888A8;  /* descriptions, meta          5.83:1 on base */
+  --text-muted:     #55556B;  /* decorative ONLY — see header note */
+
+  /* ---- Color: accent (ONE accent — deep amber-gold, used with discipline) - */
+  --accent:      #D4860A;                  /* eyebrows, links, CTA, kbd keys */
+  --accent-dim:  #B87408;                  /* primary button hover fill */
+  --accent-glow: rgba(212, 134, 10, 0.4);  /* card hover borders, focus halo — NOT text */
+
+  /* ---- Color: misc --------------------------------------------------------- */
+  --code-bg:   #0B0B14;   /* pre/code blocks — darker than surface */
+  --code-text: #C4B5A0;   /* mono text tone inside code blocks   9.76:1 on code-bg */
+  --danger:    #FF5C5C;   /* destructive notes, error states     6.59:1 on base */
+
+  /* ---- Typography ----------------------------------------------------------- */
+  --font-display: "Geist", "Space Grotesk", system-ui, sans-serif;  /* hero, h1–h3, nav */
+  --font-body:    "Inter", system-ui, sans-serif;                   /* paragraphs, UI */
+  --font-mono:    "Geist Mono", ui-monospace, "Cascadia Mono", monospace; /* code, kbd, eyebrows */
+
+  /* Type scale (1rem = 16px) */
+  --fs-xs:   0.75rem;    /* 12px — eyebrows, badges, footer meta */
+  --fs-sm:   0.875rem;   /* 14px — kbd chips, captions, table meta */
+  --fs-md:   1rem;       /* 16px — body */
+  --fs-lg:   1.125rem;   /* 18px — lede paragraphs */
+  --fs-xl:   1.375rem;   /* 22px — card titles, h3 */
+  --fs-2xl:  1.75rem;    /* 28px — h2 / section headers */
+  --fs-3xl:  2.25rem;    /* 36px — page h1 (non-hero pages) */
+  --fs-hero: clamp(2.5rem, 4.5vw + 1.25rem, 4rem); /* fluid 40→64px landing hero */
+
+  --lh-tight: 1.15;  /* display sizes */
+  --lh-body:  1.6;   /* running text */
+
+  /* ---- Spacing (4px base) ---------------------------------------------------- */
+  --sp-1: 0.25rem;  /*  4px */
+  --sp-2: 0.5rem;   /*  8px */
+  --sp-3: 0.75rem;  /* 12px */
+  --sp-4: 1rem;     /* 16px */
+  --sp-5: 1.5rem;   /* 24px */
+  --sp-6: 2rem;     /* 32px */
+  --sp-7: 3rem;     /* 48px */
+  --sp-8: 4rem;     /* 64px */
+
+  /* ---- Radius (modular panels — 8px cards) ------------------------------------ */
+  --r-sm: 4px;   /* kbd chips, badges, buttons */
+  --r-md: 8px;   /* cards, panels, code blocks */
+
+  /* ---- Shadows — REMOVED by design (borders define surfaces). Token names
+          kept so any legacy reference degrades to nothing. ------------------- */
+  --shadow-1: none;
+  --shadow-2: none;
+}
+
+/* ==========================================================================
+   SIGNATURE ELEMENT — .eyebrow  (appears on ALL THREE pages)
+   Small mono uppercase amber label with a thin 2px amber LEFT border rule.
+   Replaces the old .sig-rule everywhere. Used with discipline: one per
+   section ("PERFORMANCE", "RELEASE", "REFERENCE", …).
+
+   Usage:
+     <p class="eyebrow">Release</p>
+     <h2>TenebraOS V1.0</h2>
+   ========================================================================== */
+.eyebrow {
+  display: block;
+  margin: 0 0 var(--sp-3);
+  padding-left: var(--sp-3);
+  border-left: 2px solid var(--accent);
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  line-height: 1.4;
+}

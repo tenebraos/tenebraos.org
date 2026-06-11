@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Keybinds — TenebraOS</title>
+  <meta name="description" content="The complete TenebraOS keybind reference — window management, workspaces, launchers, screenshots, media, and session controls for Hyprland.">
+
+  <link rel="icon" type="image/png" href="assets/logo.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@500;600;700&family=Geist+Mono:wght@400;500&family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/design-tokens.css">
+  <link rel="stylesheet" href="css/motion.css">
+  <link rel="stylesheet" href="css/styles.css">
+
+  <script defer src="js/utils.js"></script>
+  <script defer src="js/keybinds-data.js"></script>
+  <script defer src="js/keybinds.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-nav">
+    <div class="nav-inner">
+      <a class="nav-brand" href="index.html">
+        <img src="assets/logo.png" alt="" width="28" height="23">
+        <span>TenebraOS</span>
+      </a>
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Toggle navigation menu">
+      <label for="nav-toggle" class="nav-toggle-btn">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="visually-hidden">Menu</span>
+      </label>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="keybinds.html" aria-current="page">Keybinds</a>
+        <a href="docs.html">Docs</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="container">
+
+      <header class="page-header">
+        <p class="eyebrow">Reference</p>
+        <h1>Keybinds</h1>
+        <p class="lede">Every default binding in TenebraOS, straight from the
+        shipped Hyprland config. Search, filter by category, or hit
+        <kbd>Enter</kbd> on a row to copy the bind.</p>
+      </header>
+
+      <noscript>
+        <p class="noscript-note">Search and filtering need JavaScript — but the
+        full table below is complete and always rendered. Nothing is hidden.</p>
+      </noscript>
+
+      <div class="kb-toolbar">
+        <div class="kb-search-wrap">
+          <label for="kb-search">Search keybinds</label>
+          <input type="search" id="kb-search" class="kb-search"
+                 placeholder="e.g. screenshot, Super + T, workspace…"
+                 autocomplete="off" spellcheck="false">
+        </div>
+        <div class="kb-pills" id="kb-pills" role="group" aria-label="Filter by category">
+          <button type="button" class="pill" data-category="all" aria-pressed="true">All</button>
+          <button type="button" class="pill" data-category="Window Management" aria-pressed="false">Window Management</button>
+          <button type="button" class="pill" data-category="Workspace Navigation" aria-pressed="false">Workspace Navigation</button>
+          <button type="button" class="pill" data-category="Application Launchers" aria-pressed="false">Application Launchers</button>
+          <button type="button" class="pill" data-category="System Controls" aria-pressed="false">System Controls</button>
+          <button type="button" class="pill" data-category="Screenshot / Recording" aria-pressed="false">Screenshot / Recording</button>
+          <button type="button" class="pill" data-category="Media Controls" aria-pressed="false">Media Controls</button>
+          <button type="button" class="pill" data-category="Hyprland Session" aria-pressed="false">Hyprland Session</button>
+        </div>
+        <p class="kb-count" id="kb-count" aria-live="polite">36 of 36 shown</p>
+        <p class="visually-hidden" id="kb-live" aria-live="polite"></p>
+      </div>
+
+      <!-- BUILD NOTE: the rows below are hand-rendered from js/keybinds-data.js
+           (same order, same text) so the table works with JS disabled.
+           If keybinds-data.js changes, regenerate these rows to match. -->
+      <div class="kb-table-wrap">
+        <table class="kb-table" id="kb-table">
+          <thead>
+            <tr>
+              <th scope="col">Keybind</th>
+              <th scope="col">Description</th>
+              <th scope="col">Category</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="kb-row" data-bind="Super + W" data-category="Window Management">
+              <td class="kb-bind"><span class="kb-keys"><kbd>Super</kbd><span class="kb-plus">+</span><kbd>W</kbd></span></td>
+              <td class="kb-desc">Close the focused window</td>
+              <td class="kb-cat"><span class="badge">Window Management</span></td>
+            </tr>
+            <tr class="kb-row" data-bind="ALT + Tab" data-category="Window Management">
+              <td class="kb-bind"><span class="kb-keys"><kbd>ALT</kbd><span class="kb-plus">+</span><kbd>Tab</kbd></span></td>
+              <td class="kb-desc">Cycle focus through open windows</td>
+              <td class="kb-cat"><span class="badge">Window Management</span></td>
+            </tr>
+            <tr class="kb-row" data-bind="Super + Mouse Drag" data-category="Window Management">
+              <td class="kb-bind"><span class="kb-keys"><kbd>Super</kbd><span class="kb-plus">+</span><kbd>Mouse Drag</kbd></span></td>
+              <td class="kb-desc">Move a window by dragging it</td>
+              <td class="kb-cat"><span class="badge">Window Management</span></td>
+            </tr>
+            <tr class="kb-row" data-bind="Super + Right Mouse Drag" data-category="Window Management">
+              <td class="kb-bind"><span class="kb-keys"><kbd>Super</kbd><span class="kb-plus">+</span><kbd>Right Mouse Drag</kbd></span></td>
+              <td class="kb-desc">Resize a window by dragging its edge</td>
+              <td class="kb-cat"><span class="badge">Window Management</span></td>
+            </tr>
+            <tr class="kb-row" data-bind="Super + Arrow Keys" data-category="Window Management">
+              <td class="kb-bind"><span class="kb-keys"><kbd>Super</kbd><span class="kb-plus">+</span><kbd>Arrow Keys</kbd></span></td>
+              <td class="kb-desc">Move focus to the window in that direction</td>
+              <td class="kb-cat"><span class="badge">Window Management</span></td>
+            </tr>
+            <tr class="kb-row" data-bind="Super + Shift + Arrow Keys" data-category="Window Management">
+              <td class="kb-bind"><span class="kb-keys"><kbd>Super</kbd><span class="kb-plus">+</span><kbd>Shift</kbd><span class="kb-plus">+</span><kbd>Arrow Keys</kbd></span></td>
+              <td class="kb-desc">Swap the focused window with its neighbor</td>
+              <td class="kb-cat"><span class="badge">Window Management</span></td>
+            </tr>
+            <tr class="kb-row" data-bind="Shift + F11" data-category="Window Management">
+              <td class="kb-bind"><span class="kb-keys"><kbd>Shift</kbd><span class="kb-plus">+</span><kbd>F11</kbd></span></td>
+              <td class="kb-desc">Toggle fullscreen for the focused window</td>
+              <td class="kb-cat"><span class="badge">Window Management</span></td>
+            </tr>
+            <tr class="kb-row" data-bind="Super + Shift + V" data-category="Window Management">
+              <td class="kb-bind"><span class="kb-keys"><kbd>Super</kbd><span class="kb-plus">+</span><kbd>Shift</kbd><span class="kb-plus">+</span><kbd>V</kbd></span></td>
+              <td class="kb-desc">Toggle floating mode for the focused window</td>
+              <td class="kb-cat"><span class="badge">Window Management</span></td>
+            </tr>
+            <tr class="kb-row" data-bind="Super + P" data-category="Window Management">
+              <td class="kb-bind"><span class="kb-keys"><kbd>Super</kbd><span class="kb-plus">+</span><kbd>P</kbd></span></td>
+              <td class="kb-desc">Toggle pseudo-tiling for the focused window</td>
+              <td class="kb-cat"><span class="badge">Window Management</span></td>
+            </tr>
+            <tr class="kb-row" data-bind="Super + 1–9" data-category="Workspace Navigation">
+              <td class="kb-bind"><span class="kb-keys"><kbd>Super</kbd><span class="kb-plus">+</span><kbd>1–9</kbd></span></td>
+              <td class="kb-desc">Switch to workspace 1 through 9</td>
+              <td class="kb-cat"><span class="badge">Workspace Navigation</span></td>
+            </tr>
+            <tr class="kb-row" data-bind="Super + 0" data-category="Workspace Navigation">
+              <td class="kb-bind"><span class="kb-keys"><kbd>Super</kbd><span class="kb-plus">+</span><kbd>0</kbd></span></td>
+              <td class="kb-desc">Switch to workspace 10</td>
+              <td class="kb-cat"><span class="badge">Workspace Navigation</span></td>
+            </tr>
+            <tr class="kb-row" data-bind="Super + Shift + 1–9" data-category="Workspace Navigation">
+              <td class="kb-bind"><span class="kb-keys"><kbd>Super</kbd><span class="kb-plus">+</span><kbd>Shift</kbd><span class="kb-plus">+</span><kbd>1–9</kbd></span></td>
+              <td class="kb-desc">Move the focused window to workspace 1 through 9</td>
+              <td class="kb-cat"><span class="badge">Workspace Navigation</span></td>
+            </tr>
+            <tr class="kb-row" data-bind="Super + Shift + 0" data-category="Workspace Navigation">
+              <td class="kb-bind"><span class="kb-keys"><kbd>Super</kbd><span class="kb-plus">+</span><kbd>Shift</kbd><span class="kb-plus">+</span><kbd>0</kbd></span></td>
+              <td class="kb-desc">Move the focused window to workspace 10</td>
+              <td class="kb-cat"><span class="badge">Workspace Navigation</span></td>
+            </tr>
+            <tr class="kb-row" data-bind="Super + Tab" data-category="Workspace Navigation">
+              <td class="kb-bind"><span class="kb-keys"><kbd>Super</kbd><span class="kb-plus">+</span><kbd>Tab</kbd></span></td>
+              <td class="kb-desc">Cycle to the next workspace</td>
+              <td class="kb-cat"><span class="badge">Workspace Navigation</span></td>
+            </tr>
+            <tr class="kb-row" data-bind="Super + Shift + Tab" data-category="Workspace Navigation">
+              <td class="kb-bind"><span class="kb-keys"><kbd>Super</kbd><span class="kb-plus">+</span><kbd>Shift</kbd><span class="kb-plus">+</span><kbd>Tab</kbd></span></td>
+              <td class="kb-desc">Cycle to the previous workspace</td>
+              <td class="kb-cat"><span class="badge">Workspace Navigation</span></td>
+            </tr>
+            <tr class="kb-row" data-bind="Super + Mouse Wheel" data-category="Workspace Navigation">
+              <td class="kb-bind"><span class="kb-keys"><kbd>Super</kbd><span class="kb-plus">+</span><kbd>Mouse Wheel</kbd></span></td>
+              <td class="kb-desc">Scroll through workspaces</td>
+              <td class="kb-cat"><span class="badge">Workspace Navigation</span></td>
+            </tr>
+            <tr class="kb-row" data-bind="Super + T" data-category="Application Launchers">
+              <td class="kb-bind"><span class="kb-keys"><kbd>Super</kbd><span class="kb-plus">+</span><kbd>T</kbd></span></td>
+              <td class="kb-desc">Open a terminal (kitty)</td>
+              <td class="kb-cat"><span class="badge">Application Launchers</span></td>
+            </tr>
+            <tr class="kb-row" data-bind="Super + B" data-category="Application Launchers">
+              <td class="kb-bind"><span class="kb-keys"><kbd>Super</kbd><span class="kb-plus">+</span><kbd>B</kbd></span></td>
+              <td class="kb-desc">Open the web browser (Floorp)</td>
+              <td class="kb-cat"><span class="badge">Application Launchers</span></td>
+            </tr>
+            <tr class="kb-row" data-bind="Super + F" data-category="Application Launchers">
+              <td class="kb-bind"><span class="kb-keys"><kbd>Super</kbd><span class="kb-plus">+</span><kbd>F</kbd></span></td>
+              <td class="kb-desc">Open the file manager (Nautilus)</td>
+              <td class="kb-cat"><span class="badge">Application Launchers</span></td>
+            </tr>
+            <tr class="kb-row" data-bind="Super + Space" data-category="Application Launchers">
+              <td class="kb-bind"><span class="kb-keys"><kbd>Super</kbd><span class="kb-plus">+</span><kbd>Space</kbd></span></td>
+              <td class="kb-desc">Open the Noctalia application launcher</td>
+              <td class="kb-cat"><span class="badge">Application Launchers</span></td>
+            </tr>
+            <tr class="kb-row" data-bind="Super + M" data-category="Application Launchers">
+              <td class="kb-bind"><span class="kb-keys"><kbd>Super</kbd><span class="kb-plus">+</span><kbd>M</kbd></span></td>
+              <td class="kb-desc">Open the music player (Plexamp)</td>
+              <td class="kb-cat"><span class="badge">Application Launchers</span></td>
+            </tr>
+            <tr class="kb-row" data-bind="Super + L" data-category="System Controls">
+              <td class="kb-bind"><span class="kb-keys"><kbd>Super</kbd><span class="kb-plus">+</span><kbd>L</kbd></span></td>
+              <td class="kb-desc">Lock the screen (hyprlock)</td>
+              <td class="kb-cat"><span class="badge">System Controls</span></td>
+            </tr>
+            <tr class="kb-row" data-bind="Brightness Up Key" data-category="System Controls">
+              <td class="kb-bind"><span class="kb-keys"><kbd>Brightness Up Key</kbd></span></td>
+              <td class="kb-desc">Raise the screen brightness</td>
+              <td class="kb-cat"><span class="badge">System Controls</span></td>
+            </tr>
+            <tr class="kb-row" data-bind="Brightness Down Key" data-category="System Controls">
+              <td class="kb-bind"><span class="kb-keys"><kbd>Brightness Down Key</kbd></span></td>
+              <td class="kb-desc">Lower the screen brightness</td>
+              <td class="kb-cat"><span class="badge">System Controls</span></td>
+            </tr>
+            <tr class="kb-row" data-bind="Print" data-category="Screenshot / Recording">
+              <td class="kb-bind"><span class="kb-keys"><kbd>Print</kbd></span></td>
+              <td class="kb-desc">Capture a screenshot of a selected region (grimblast)</td>
+              <td class="kb-cat"><span class="badge">Screenshot / Recording</span></td>
+            </tr>
+            <tr class="kb-row" data-bind="Super + Print" data-category="Screenshot / Recording">
+              <td class="kb-bind"><span class="kb-keys"><kbd>Super</kbd><span class="kb-plus">+</span><kbd>Print</kbd></span></td>
+              <td class="kb-desc">Capture a screenshot of the full screen (grimblast)</td>
+              <td class="kb-cat"><span class="badge">Screenshot / Recording</span></td>
+            </tr>
+            <tr class="kb-row" data-bind="Super + Shift + Print" data-category="Screenshot / Recording">
+              <td class="kb-bind"><span class="kb-keys"><kbd>Super</kbd><span class="kb-plus">+</span><kbd>Shift</kbd><span class="kb-plus">+</span><kbd>Print</kbd></span></td>
+              <td class="kb-desc">Capture a screenshot of the active window (grimblast)</td>
+              <td class="kb-cat"><span class="badge">Screenshot / Recording</span></td>
+            </tr>
+            <tr class="kb-row" data-bind="Volume Up Key" data-category="Media Controls">
+              <td class="kb-bind"><span class="kb-keys"><kbd>Volume Up Key</kbd></span></td>
+              <td class="kb-desc">Raise the system volume</td>
+              <td class="kb-cat"><span class="badge">Media Controls</span></td>
+            </tr>
+            <tr class="kb-row" data-bind="Volume Down Key" data-category="Media Controls">
+              <td class="kb-bind"><span class="kb-keys"><kbd>Volume Down Key</kbd></span></td>
+              <td class="kb-desc">Lower the system volume</td>
+              <td class="kb-cat"><span class="badge">Media Controls</span></td>
+            </tr>
+            <tr class="kb-row" data-bind="Mute Key" data-category="Media Controls">
+              <td class="kb-bind"><span class="kb-keys"><kbd>Mute Key</kbd></span></td>
+              <td class="kb-desc">Mute or unmute the system audio</td>
+              <td class="kb-cat"><span class="badge">Media Controls</span></td>
+            </tr>
+            <tr class="kb-row" data-bind="Play / Pause Key" data-category="Media Controls">
+              <td class="kb-bind"><span class="kb-keys"><kbd>Play / Pause Key</kbd></span></td>
+              <td class="kb-desc">Play or pause the current media</td>
+              <td class="kb-cat"><span class="badge">Media Controls</span></td>
+            </tr>
+            <tr class="kb-row" data-bind="Next Track Key" data-category="Media Controls">
+              <td class="kb-bind"><span class="kb-keys"><kbd>Next Track Key</kbd></span></td>
+              <td class="kb-desc">Skip to the next track</td>
+              <td class="kb-cat"><span class="badge">Media Controls</span></td>
+            </tr>
+            <tr class="kb-row" data-bind="Previous Track Key" data-category="Media Controls">
+              <td class="kb-bind"><span class="kb-keys"><kbd>Previous Track Key</kbd></span></td>
+              <td class="kb-desc">Go back to the previous track</td>
+              <td class="kb-cat"><span class="badge">Media Controls</span></td>
+            </tr>
+            <tr class="kb-row" data-bind="Super + Ctrl + R" data-category="Hyprland Session">
+              <td class="kb-bind"><span class="kb-keys"><kbd>Super</kbd><span class="kb-plus">+</span><kbd>Ctrl</kbd><span class="kb-plus">+</span><kbd>R</kbd></span></td>
+              <td class="kb-desc">Reload the Noctalia shell</td>
+              <td class="kb-cat"><span class="badge">Hyprland Session</span></td>
+            </tr>
+            <tr class="kb-row" data-bind="Super + Escape" data-category="Hyprland Session">
+              <td class="kb-bind"><span class="kb-keys"><kbd>Super</kbd><span class="kb-plus">+</span><kbd>Escape</kbd></span></td>
+              <td class="kb-desc">Open the session and power menu</td>
+              <td class="kb-cat"><span class="badge">Hyprland Session</span></td>
+            </tr>
+            <tr class="kb-row" data-bind="Super + Shift + E" data-category="Hyprland Session">
+              <td class="kb-bind"><span class="kb-keys"><kbd>Super</kbd><span class="kb-plus">+</span><kbd>Shift</kbd><span class="kb-plus">+</span><kbd>E</kbd></span></td>
+              <td class="kb-desc">Exit the Hyprland session</td>
+              <td class="kb-cat"><span class="badge">Hyprland Session</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="kb-empty" id="kb-empty" hidden>// no keybinds match — clear the
+      search or pick another category</p>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h2 class="footer-head">Navigation</h2>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="keybinds.html">Keybinds</a></li>
+            <li><a href="docs.html">Docs</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h2 class="footer-head">Project</h2>
+          <ul>
+            <li><a href="https://github.com/tenebraos" rel="noopener noreferrer">GitHub</a></li>
+            <li><a href="https://github.com/tenebraos" rel="noopener noreferrer">Licenses: MIT + GPL-3.0 per component</a></li>
+            <!-- TODO: changelog URL when published -->
+            <li><a href="#main">Changelog (coming soon)</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h2 class="footer-head">Community</h2>
+          <ul>
+            <!-- TODO: community links when channels exist -->
+            <li><a href="#main">Matrix (coming soon)</a></li>
+            <li><a href="#main">Discussions (coming soon)</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2026 TenebraOS</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

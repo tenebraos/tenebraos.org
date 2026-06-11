@@ -1,0 +1,5 @@
+# TenebraOS website — Cloudflare Pages project config.
+# PM ruling: dist/ is the deploy root, NOT "." — _headers/_redirects live there.
+name = "tenebraos-site"
+compatibility_date = "2024-01-01"
+pages_build_output_dir = "dist"

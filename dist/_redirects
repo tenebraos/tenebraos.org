@@ -1,0 +1,12 @@
+# TenebraOS website — Cloudflare Pages clean URLs
+# Lines starting with # are comments in Cloudflare Pages _redirects.
+#
+# Status 200 = rewrite (URL stays clean in the address bar, content served
+# from the .html file). Only /keybinds and /docs need rules: Cloudflare Pages
+# serves index.html for / natively, so no redirect is needed for the root.
+
+/keybinds  /keybinds.html  200
+/docs      /docs.html      200
+
+# /download rewrites to the landing page's download section.
+/download    /index.html#download    200

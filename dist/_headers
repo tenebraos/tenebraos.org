@@ -1,0 +1,19 @@
+# TenebraOS website — Cloudflare Pages security headers
+#
+# FRONTEND REQUIREMENT: CSP forbids inline scripts — keep all JS in /js/*.js.
+# Inline style attributes are also forbidden (style-src has no 'unsafe-inline');
+# all styling must live in /css/*.css or the allowed Google Fonts stylesheets.
+#
+# CSP allows:
+#   - scripts:  self + https://cdnjs.cloudflare.com (highlight.js)
+#   - styles:   self + https://fonts.googleapis.com (Google Fonts CSS)
+#   - fonts:    self + https://fonts.gstatic.com (Google Fonts files)
+#   - images:   self + data: URIs
+#   - everything else locked down (object-src none, frame-ancestors none)
+
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=()
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; object-src 'none'; base-uri 'self'; frame-ancestors 'none'

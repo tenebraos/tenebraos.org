@@ -1,0 +1,64 @@
+/* ==========================================================================
+   TenebraOS — motion.css  (v2 — minimal by design)
+   Import order on every page: design-tokens.css → motion.css → styles.css
+
+   Contents:
+     1. Transition duration/easing tokens (composed in styles.css)
+     2. Hero entrance — a single subtle fade-rise, staggered (INDEX ONLY)
+     3. prefers-reduced-motion: kills everything defined in this file
+   ========================================================================== */
+
+/* ---- 1. Transition tokens ------------------------------------------------ */
+:root {
+  --ease-snap:   cubic-bezier(0.2, 0, 0, 1);
+  --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-linear: linear;
+
+  --dur-fast: 120ms;   /* filter rows, pill toggles, hover states */
+  --dur-base: 200ms;   /* buttons, card borders, copy-feedback */
+  --dur-slow: 320ms;   /* nav collapse, larger panel movement */
+}
+
+/* ---- 2. Hero entrance (landing page ONLY) ---------------------------------
+   Subtle fade + 12px rise, 480ms, staggered 90ms per line. CSP forbids
+   inline style="--stagger: n", so the index uses .stagger-0 … .stagger-3. */
+@keyframes hero-rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-enter {
+  --stagger: 0;
+  opacity: 0; /* prevents flash before delayed animation starts */
+  animation: hero-rise-in 480ms var(--ease-out) forwards;
+  animation-delay: calc(var(--stagger) * 90ms);
+}
+
+.stagger-0 { --stagger: 0; }
+.stagger-1 { --stagger: 1; }
+.stagger-2 { --stagger: 2; }
+.stagger-3 { --stagger: 3; }
+.stagger-4 { --stagger: 4; }
+
+/* ---- 3. Reduced motion ------------------------------------------------------
+   Everything dies: hero renders instantly, every duration token collapses to
+   0ms so all transitions composed from them in styles.css become instant. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-fast: 0ms;
+    --dur-base: 0ms;
+    --dur-slow: 0ms;
+  }
+
+  .hero-enter {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
