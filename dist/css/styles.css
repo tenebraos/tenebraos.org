@@ -1354,3 +1354,24 @@ noscript .noscript-note {
     white-space: normal;
   }
 }
+
+/* ── desktop preview module (PM addition) ── */
+.preview {
+  margin: 0;
+  border: 1px solid var(--border-panel);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--bg-surface);
+}
+.preview img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.preview figcaption {
+  padding: var(--sp-3) var(--sp-4);
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  border-top: 1px solid var(--border-panel);
+}
